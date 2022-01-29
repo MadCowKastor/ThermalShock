@@ -5,31 +5,53 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
+    [Tooltip("How fast the player moves. Units are meters per second.")]
     public float moveSpeed = 0f;
 
     [Header("Health")]
+    [Tooltip("The current heat level of the player.")]
     public float heat;
+    [Tooltip("The hottest the player can reach before dying.")]
     public float heatMax;
+    [Tooltip("The coldest the player can reach before dying.")]
     public float heatMin;
+    [Tooltip("Currently not implemented, using heat system as health.")]
     public float health;
 
     [Header("Attack - Gun")]
+    [Tooltip("Is the gun running through its attack cycle. This includes cooldown.")]
     public bool gunAttacking;
+    [Tooltip("The amount of heat the player is changed by.")]
     public float gunHeatGenerated;
+    [Tooltip("The amount of time before the gun fires (after pushing the fire button).")]
     public float gunAttackDelay;
+    [Tooltip("The amount of time after the gun has fired before the gun can be fired again.")]
     public float gunAttackCooldown;
+    [Tooltip("The linked prefab of the projectile to spawn.")]
     public GameObject projectilePrefab;
+    [Tooltip("The amount of heat change the projectile does when it hits something.")]
+    public float projectileHeat;
+    [Tooltip("How fast the projectile will move.")]
+    public float projectileSpeed;
 
     private float gunClock;
     private int gunState;
 
     [Header("Attack - Sword")]
+    [Tooltip("Is the sword currently ready to be used?")]
     public bool swordAttacking;
+    [Tooltip("The amount of heat the player recives from swinging the sword.")]
     public float swordHeatGenerated;
+    [Tooltip("The time after the attack button is first pressed before the sword swing/actual attack occurs.")]
     public float swordAttackDelay;
+    [Tooltip("How long the sword hangs in the air to collide with things and impart heat to them.")]
     public float swordAttackCutTime;
+    [Tooltip("The amount of time after a swing that must pass before you can start swinging again.")]
     public float swordAttackCooldown;
+    [Tooltip("The sword gameObject that checks if something has been hit.")]
     public GameObject swordObject;
+    [Tooltip("The amount heat is changed on a hit target with the sword.")]
+    public float swordHeatDamage;
 
     private float swordClock;
     private int swordState;
