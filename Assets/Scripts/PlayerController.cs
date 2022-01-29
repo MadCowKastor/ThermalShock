@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public float heatLossRate;
     [Tooltip("The heat the player naturally resets to")]
     public float ambiantHeat;
-    [Tooltip("Currently not implemented, using heat system as health.")]
+    [Tooltip("Players Health to Die from non-heat sources.")]
     public float health;
 
     [Header("Attack - Gun")]
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The linked prefab of the projectile to spawn.")]
     public GameObject projectilePrefab;
     [Tooltip("The amount of heat change the projectile does when it hits something.")]
-    public float projectileHeatDamage;
+    public float projectileDamage;
     [Tooltip("How fast the projectile will move.")]
     public float projectileSpeed;
 
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The sword gameObject that checks if something has been hit.")]
     public GameObject swordObject;
     [Tooltip("The amount heat is changed on a hit target with the sword.")]
-    public float swordHeatDamage;
+    public float swordDamage;
 
     private float swordClock;
     private int swordState;
@@ -239,7 +239,8 @@ public class PlayerController : MonoBehaviour
     {
         //get Direction of mouse/second stick and create a projectile prefab moving in that direction.
         PlayerProjectile projectile = Instantiate<GameObject>(projectilePrefab, gameObject.transform.position + pos, rot).GetComponent<PlayerProjectile>() ;
-        projectile.projectileHeat = projectileHeatDamage;
+        projectile.projectileHeat = heat - 25;
+        projectile.projectileDamage = projectileDamage;
         projectile.flySpeed = projectileSpeed;
     }
 

@@ -10,11 +10,20 @@ public class PlayerProjectile : MonoBehaviour
 
     public float projectileHeat = 0f;
 
+    public float projectileDamage = 0f;
+
     float deathClock = 0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(projectileHeat < 0)
+        {
+            //use cold sprite
+        }
+        else if (projectileHeat > 75)
+        {
+            //use hot sprite
+        }
     }
 
     // Update is called once per frame
@@ -34,7 +43,7 @@ public class PlayerProjectile : MonoBehaviour
         Attackable otherScript = other.GetComponent<Attackable>();
         if (otherScript != null)
         {
-            otherScript.Hit(projectileHeat, false);
+            otherScript.Hit(projectileHeat, projectileDamage);
         }
 
         //replace this line with a generate explosion prefab, if using it.
