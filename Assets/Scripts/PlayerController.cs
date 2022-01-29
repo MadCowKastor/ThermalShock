@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     public float heatMax;
     [Tooltip("The coldest the player can reach before dying.")]
     public float heatMin;
+    [Tooltip("How fast the player naturally loses heat.")]
+    public float heatLossRate;
+    [Tooltip("The heat the player naturally resets to")]
+    public float ambiantHeat;
     [Tooltip("Currently not implemented, using heat system as health.")]
     public float health;
 
@@ -79,7 +83,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        HeatUpdate();
         (pos, rot) = GetDirection();
 
         if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") ) { gunAttacking = true; }
@@ -88,6 +92,14 @@ public class PlayerController : MonoBehaviour
         GunAttack();
         SwordAttack();
         Movement();
+    }
+
+    void HeatUpdate()
+    {
+        if((heat > heatMax) || (heat < heatMin)){
+            //die
+        }
+        heat += (ambiantHeat - heat) * heatLossRate * Time.deltaTime;
     }
 
     // Check and do movement based on inputs.
@@ -142,7 +154,10 @@ public class PlayerController : MonoBehaviour
 
                 case 1:
                     //Debug.Log("Gun is in state 1, the projectile spawn/attack state.");
-                    SpawnProjectile();
+                    if (heat + gunHeatGenerated <= 100){
+                        SpawnProjectile();
+                        heat += gunHeatGenerated;
+                    }
                     gunState = 2;
                     break;
 

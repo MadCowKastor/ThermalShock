@@ -8250,6 +8250,8 @@ MonoBehaviour:
   heat: 0
   heatMax: 100
   heatMin: -100
+  heatLossRate: 0.1
+  ambiantHeat: 0
   health: 0
   gunAttacking: 0
   gunHeatGenerated: 25

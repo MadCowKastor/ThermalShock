@@ -5,4 +5,5 @@ using UnityEngine;
 public interface Attackable
 {
     void Hit(float heat, bool isMelee);
+    float MeleeHit(float heat);
 }
