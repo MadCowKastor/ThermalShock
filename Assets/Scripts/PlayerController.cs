@@ -57,6 +57,8 @@ public class PlayerController : MonoBehaviour
     public GameObject swordObject;
     [Tooltip("The amount heat is changed on a hit target with the sword.")]
     public float swordDamage;
+    [Tooltip("The percent of heat difference the player absorbs from melee attacks. 0.8 is %80  of the difference.")]
+    public float absorbtionPercentage;
 
     private float swordClock;
     private int swordState;
@@ -96,7 +98,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire2") || Input.GetButton("Fire2")) { swordAttacking = true; }
         GetDirection();
         GunAttack();
-        SwordRotate();
         SwordAttack();
         Movement();
     }
@@ -104,7 +105,7 @@ public class PlayerController : MonoBehaviour
     void HeatUpdate()
     {
         if((heat > heatMax) || (heat < heatMin)){
-            //die
+            PlayerDeath();
         }
         heat += (ambiantHeat - heat) * heatLossRate * Time.deltaTime;
     }
@@ -128,11 +129,14 @@ public class PlayerController : MonoBehaviour
 
         Vector3 mouseHitPoint = Vector3.zero;
         float rayHitDist;
+
+        // Raycasts the ray from the mouse point on the screen to the virtual plane, and outputs the point of contact.
         if (aimPlane.Raycast(mouseRay, out rayHitDist))
         {
             mouseHitPoint = mouseRay.GetPoint(rayHitDist);
         }
 
+        // Look at the point in space from the raycast.
         Vector3 newLookAt = Vector3.zero;
         newLookAt = mouseHitPoint - gameObject.transform.position;
 
@@ -146,14 +150,15 @@ public class PlayerController : MonoBehaviour
         mouseHitPoint = mouseHitPoint * 2f;
         Quaternion lookAt = Quaternion.LookRotation(mouseHitPoint, Vector3.up);
 
+        // Rotates the helper objects to show the rotation in game.
         otherHelperObject.transform.SetPositionAndRotation(otherHelperObject.transform.position, newLookAtQuat);
         helperObject.transform.SetPositionAndRotation(mouseHitPoint + gameObject.transform.position, helperObject.transform.rotation);
+
         float eRot = 0f;
         Vector3 rotAxis;
-        lookAt.ToAngleAxis(out eRot, out rotAxis);
+        newLookAtQuat.ToAngleAxis(out eRot, out rotAxis);
         return (mouseHitPoint, newLookAtQuat, rotAxis, eRot);
     }
-
 
     // gun attack logic
     void GunAttack() {
@@ -194,6 +199,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Sword attack states. triggering an attack will go through multiple states until it resets back to the begining.
     void SwordAttack()
     {
         if (swordAttacking)
@@ -208,8 +214,10 @@ public class PlayerController : MonoBehaviour
                 case 1:
                     swordState = 2;
                     swordObject.SetActive(true);
+                    swordObject.transform.rotation = rot;
                     break;
                 case 2:
+                    swordObject.transform.rotation = rot;
                     if (swordClock >= swordAttackDelay + swordAttackCutTime)
                     {
                         swordObject.SetActive(false);
@@ -230,10 +238,6 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    void SwordRotate()
-    {
-        swordObject.transform.rotation = rot;
-    }
 
     // code for the player to fire a projectile.
     void SpawnProjectile()
@@ -245,7 +249,15 @@ public class PlayerController : MonoBehaviour
         projectile.flySpeed = projectileSpeed;
     }
 
+    void PlayerDeath()
+    {
+        Destroy(gameObject);
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy")) { Debug.Log("Player has triggered with " + other.name); }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Player has collided with " + collision.gameObject.name);
