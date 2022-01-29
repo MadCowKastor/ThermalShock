@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8334,7 +8334,7 @@ MonoBehaviour:
   gunAttackCooldown: 0.2
   projectilePrefab: {fileID: 7651889347348835898, guid: 481ec9dc8f5575645b77e865076acd52,
     type: 3}
-  projectileHeatDamage: -25
+  projectileDamage: 0
   projectileSpeed: 15
   swordAttacking: 0
   swordHeatGenerated: 0
@@ -8342,7 +8342,7 @@ MonoBehaviour:
   swordAttackCutTime: 0
   swordAttackCooldown: 0
   swordObject: {fileID: 2010501512}
-  swordHeatDamage: 0
+  swordDamage: 0
   helperObject: {fileID: 1064134051}
   otherHelperObject: {fileID: 1454167792}
 --- !u!136 &529072978
@@ -30482,6 +30482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordHeat: 0
+  swordDamage: 0
 --- !u!54 &2073871133
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -32142,3 +32143,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 481ec9dc8f5575645b77e865076acd52, type: 3}
+--- !u!1001 &6054646197968357429
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.2588191
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9659258
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240777319819439643, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053426296039911517, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f,
+        type: 3}
+      propertyPath: m_Name
+      value: ice golem
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 51d4b6e7fd99b3c4db0f6d71dbee4c4f, type: 3}
