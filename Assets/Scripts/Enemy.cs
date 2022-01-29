@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour , Attackable
     [Header("internal stuff")]
     [Tooltip("The root object, for deletion and movement driving.")]
     public GameObject rootObject;
+    public Vector3 vectorToPlayer;
+    public CharacterController charControl;
 
     public void Hit(float heat, bool isMelee)
     {
@@ -41,6 +43,7 @@ public class Enemy : MonoBehaviour , Attackable
     // Start is called before the first frame update
     void Start()
     {
+        charControl = gameObject.GetComponent<CharacterController>();
         //Setting the current heat level to the starting level.
         heatLevel = baseHeat;
     }
@@ -48,7 +51,14 @@ public class Enemy : MonoBehaviour , Attackable
     // Update is called once per frame
     void Update()
     {
-        
+        vectorToPlayer = FindObjectOfType<PlayerController>().transform.position - gameObject.transform.position;
+        vectorToPlayer.Normalize();
+        Movement();
+    }
+
+    void Movement()
+    {
+        charControl.Move(vectorToPlayer * moveSpeed * Time.deltaTime);
     }
 
     //Death checks and destruction of the object.
