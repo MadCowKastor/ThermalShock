@@ -45,10 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe680a9669603e489d745f8eef3522a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHeat: 50
+  baseHeat: 100
   deathHeat: 0
   chilledDeath: 1
-  heatLevel: 0
+  heatLevel: 100
+  health: 100
+  normalDamageMult: 0.2
+  heatShockDamageMult: 0.02
   moveSpeed: 5
   vectorToPlayer: {x: 0, y: 0, z: 0}
   charControl: {fileID: 0}
