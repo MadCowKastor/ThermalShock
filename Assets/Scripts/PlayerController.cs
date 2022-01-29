@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController charControl;
     Vector3 pos;
     Quaternion rot;
+    Vector3 axisRotAxis;
+    float axisRotAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -84,12 +86,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HeatUpdate();
-        (pos, rot) = GetDirection();
+        (pos, rot, axisRotAxis, axisRotAngle) = GetDirection();
 
         if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") ) { gunAttacking = true; }
         if (Input.GetButtonDown("Fire2") || Input.GetButton("Fire2")) { swordAttacking = true; }
         GetDirection();
         GunAttack();
+        SwordRotate();
         SwordAttack();
         Movement();
     }
@@ -114,28 +117,37 @@ public class PlayerController : MonoBehaviour
     }
 
     // calculates the angle/ direction the mouse is from the player character, to be fed into attacks.
-    (Vector3, Quaternion) GetDirection()
+    (Vector3, Quaternion, Vector3, float) GetDirection()
     {
         Plane aimPlane = new Plane(Vector3.up, Vector3.up);
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         Vector3 mouseHitPoint = Vector3.zero;
         float rayHitDist;
-        if (aimPlane.Raycast(mouseRay, out rayHitDist) )
+        if (aimPlane.Raycast(mouseRay, out rayHitDist))
         {
             mouseHitPoint = mouseRay.GetPoint(rayHitDist);
         }
-        
+
+        Vector3 newLookAt = Vector3.zero;
+        newLookAt = mouseHitPoint - gameObject.transform.position;
+
+        newLookAt.y = 0f;
+        newLookAt.Normalize();
+        Quaternion newLookAtQuat = Quaternion.LookRotation(newLookAt, Vector3.up);
+
         mouseHitPoint = gameObject.transform.InverseTransformPoint(mouseHitPoint);
         mouseHitPoint.y = 0f;
         mouseHitPoint.Normalize();
         mouseHitPoint = mouseHitPoint * 2f;
         Quaternion lookAt = Quaternion.LookRotation(mouseHitPoint, Vector3.up);
 
-        otherHelperObject.transform.SetPositionAndRotation(otherHelperObject.transform.position, lookAt);
+        otherHelperObject.transform.SetPositionAndRotation(otherHelperObject.transform.position, newLookAtQuat);
         helperObject.transform.SetPositionAndRotation(mouseHitPoint + gameObject.transform.position, helperObject.transform.rotation);
-
-        return (mouseHitPoint, lookAt);
+        float eRot = 0f;
+        Vector3 rotAxis;
+        lookAt.ToAngleAxis(out eRot, out rotAxis);
+        return (mouseHitPoint, newLookAtQuat, rotAxis, eRot);
     }
 
 
@@ -213,6 +225,10 @@ public class PlayerController : MonoBehaviour
 
 
         }
+    }
+    void SwordRotate()
+    {
+        swordObject.transform.rotation = rot;
     }
 
     // code for the player to fire a projectile.
