@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour , Attackable
     [Space]
     [Tooltip("The enemy's current heat level. Changed in game. Automatically set to the base heat on start")]
     public float heatLevel = 0f;
+    public float health = 100f;
+    public float normalDamageMult = 1f;
+    public float heatShockDamageMult = 0.01f;
 
     [Header("Movement")]
     [Tooltip("Movement speed (in meters per second) of the Enemy.")]
@@ -24,18 +27,19 @@ public class Enemy : MonoBehaviour , Attackable
     public Vector3 vectorToPlayer;
     public CharacterController charControl;
     public PlayerController playerCon;
-    public void Hit(float heat, bool isMelee)
+    public void Hit(float heat, float damage)
     {
         //Take heat damage, and then check if dead.
-        heatLevel += heat;
+        health -= damage * (normalDamageMult + (Mathf.Abs(heatLevel - heat) * heatShockDamageMult));
+        //heatLevel += heat;
         AmIDead();
     }
 
-    public float MeleeHit(float heat)
+    public float MeleeHit(float heat, float damage)
     {
         //Same as Hit but returns targets heat before hit.
         var preHeat = heatLevel;
-        Hit(heat, true);
+        Hit(heat, damage);
         return preHeat;
     }
 
@@ -78,6 +82,11 @@ public class Enemy : MonoBehaviour , Attackable
                 Debug.Log(gameObject.name + " died from natural causes. (Too hot) ");
                 Destroy(gameObject);
             }
+        }
+        if(health <= 0)
+        {
+            Debug.Log(gameObject.name + " died from grievious harm. ");
+            Destroy(gameObject);
         }
     }
 }
