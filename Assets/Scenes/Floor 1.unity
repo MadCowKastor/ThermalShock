@@ -38840,6 +38840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swordHeat: 0
   swordDamage: 0
+  playerCon: {fileID: 0}
 --- !u!54 &626578424
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -71175,6 +71176,7 @@ MonoBehaviour:
   swordAttackCooldown: 0
   swordObject: {fileID: 1752747909}
   swordDamage: 0
+  absorbtionPercentage: 0
   helperObject: {fileID: 455582484}
   otherHelperObject: {fileID: 997879850}
 --- !u!136 &1192507824
@@ -127328,85 +127330,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145610381}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &3537799604034893902
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3337147691656903127, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: moveWithTransform
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523202983, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_Name
-      value: Fire Beam
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.056
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.013
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238748523203032, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370238749904374953, guid: 6a03cd3b91d647b4586513f20936d98a,
-        type: 3}
-      propertyPath: moveWithTransform
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6a03cd3b91d647b4586513f20936d98a, type: 3}
 --- !u!1001 &6045232764035495412
 PrefabInstance:
   m_ObjectHideFlags: 0
