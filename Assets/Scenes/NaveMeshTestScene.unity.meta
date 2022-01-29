@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scenes/NaveMeshTestScene.unity.meta
 guid: f0e891ea92dbc454f9c83d5ee9df5e81
 DefaultImporter:
+=======
+guid: 13d2b804a53a4fe47a2cf6111540ec8c
+PrefabImporter:
+>>>>>>> 99dc5336ede48604f66bd3f066659e23f73972a7:Assets/Prefabs/creatures/ice golem.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
