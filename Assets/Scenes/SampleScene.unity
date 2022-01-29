@@ -8334,7 +8334,7 @@ MonoBehaviour:
   gunAttackCooldown: 0.2
   projectilePrefab: {fileID: 7651889347348835898, guid: 481ec9dc8f5575645b77e865076acd52,
     type: 3}
-  projectileHeatDamage: -25
+  projectileDamage: 0
   projectileSpeed: 15
   swordAttacking: 0
   swordHeatGenerated: 0
@@ -8342,7 +8342,7 @@ MonoBehaviour:
   swordAttackCutTime: 0
   swordAttackCooldown: 0
   swordObject: {fileID: 2010501512}
-  swordHeatDamage: 0
+  swordDamage: 0
   helperObject: {fileID: 1064134051}
   otherHelperObject: {fileID: 1454167792}
 --- !u!136 &529072978
@@ -30481,7 +30481,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0726fccc3ca8aeb46b4d41d31b137992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCon: {fileID: 0}
   swordHeat: 0
+  swordDamage: 0
 --- !u!54 &2073871133
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31997,7 +31999,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyTrap
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9086232155621726771, guid: 2f6bad210fc79be4fa860e474c00fabc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2f6bad210fc79be4fa860e474c00fabc, type: 3}
 --- !u!1001 &1501722943208164358
 PrefabInstance:
@@ -32066,8 +32069,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4284268658585273515, guid: c489362f94e7bbe4399412d52c5409d5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c489362f94e7bbe4399412d52c5409d5, type: 3}
+--- !u!1 &4530817367915940920 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3042044570913652798, guid: c489362f94e7bbe4399412d52c5409d5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1501722943208164358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4530817367915940921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530817367915940920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9b7b14a200ac4479b24b8b8b554b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseHeat: 50
+  deathHeat: 0
+  chilledDeath: 0
+  heatLevel: 0
+  health: 100
+  normalDamageMult: 1
+  heatShockDamageMult: 0.01
+  moveSpeed: 5
+  vectorToPlayer: {x: 0, y: 0, z: 0}
+  charControl: {fileID: 0}
+  playerCon: {fileID: 0}
 --- !u!1001 &5270767859494058631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32142,3 +32175,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 481ec9dc8f5575645b77e865076acd52, type: 3}
+--- !u!1 &8897051337592237599 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8024161981977517734, guid: 2f6bad210fc79be4fa860e474c00fabc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1451040624306270393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8897051337592237600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8897051337592237599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9b7b14a200ac4479b24b8b8b554b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseHeat: 0
+  deathHeat: 50
+  chilledDeath: 0
+  heatLevel: 0
+  health: 100
+  normalDamageMult: 1
+  heatShockDamageMult: 0.01
+  moveSpeed: 3
+  vectorToPlayer: {x: 0, y: 0, z: 0}
+  charControl: {fileID: 0}
+  playerCon: {fileID: 0}

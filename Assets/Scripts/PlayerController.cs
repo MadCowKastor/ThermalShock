@@ -244,11 +244,6 @@ public class PlayerController : MonoBehaviour
         projectile.flySpeed = projectileSpeed;
     }
 
-    void ReciveHeat(float heatAmount)
-    {
-        heat += heatAmount;
-    }
-
     void PlayerDeath()
     {
         Destroy(gameObject);

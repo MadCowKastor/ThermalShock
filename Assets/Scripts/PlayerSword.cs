@@ -23,12 +23,10 @@ public class PlayerSword : MonoBehaviour
     {
         Attackable hitObject = other.GetComponent<Attackable>();
         if (other.name != "Player" && hitObject != null) 
-        { 
-<<<<<<< HEAD
-            float targetHeatLevel = hitObject.MeleeHit(swordHeat); 
-=======
-            float targetHeat = hitObject.MeleeHit(swordHeat,swordDamage); 
->>>>>>> origin/main
+        {
+
+            float targetHeatLevel = hitObject.MeleeHit(swordHeat,swordDamage); 
+
             //if target heat > player heat, heat up player, else cool player.
             // if my math is right, we dont need an if statement here. Adding a negitive number still results in subtraction.
             // changes the players heat level by 80% of the difference between the players and targets heat level.
