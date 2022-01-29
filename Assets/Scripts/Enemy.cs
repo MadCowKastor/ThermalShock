@@ -38,10 +38,9 @@ public class Enemy : MonoBehaviour , Attackable
     public float MeleeHit(float heat, float damage)
     {
         //Same as Hit but returns targets heat before hit.
-
-        float preHitHeatLevel = heatLevel;
-        Hit(heat, true);
-        return preHitHeatLevel;
+        var preHeat = heatLevel;
+        Hit(heat, damage);
+        return preHeat;
     }
 
     // Start is called before the first frame update
