@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
     void HeatUpdate()
     {
         if((heat > heatMax) || (heat < heatMin)){
-            //die
+            PlayerDeath();
         }
         heat += (ambiantHeat - heat) * heatLossRate * Time.deltaTime;
     }
@@ -153,7 +153,6 @@ public class PlayerController : MonoBehaviour
         lookAt.ToAngleAxis(out eRot, out rotAxis);
         return (mouseHitPoint, newLookAtQuat, rotAxis, eRot);
     }
-
 
     // gun attack logic
     void GunAttack() {
@@ -244,7 +243,16 @@ public class PlayerController : MonoBehaviour
         projectile.flySpeed = projectileSpeed;
     }
 
+    void ReciveHeat(float heatAmount)
+    {
+        heat += heatAmount;
+    }
 
+    void PlayerDeath()
+    {
+        Destroy(gameObject);
+        return;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Player has collided with " + collision.gameObject.name);
