@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Unity Variables and Tooltips
     [Header("Movement")]
     [Tooltip("How fast the player moves. Units are meters per second.")]
     public float moveSpeed = 0f;
@@ -69,6 +70,9 @@ public class PlayerController : MonoBehaviour
     Quaternion rot;
     Vector3 axisRotAxis;
     float axisRotAngle;
+
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
