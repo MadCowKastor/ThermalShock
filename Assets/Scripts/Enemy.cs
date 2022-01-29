@@ -21,10 +21,9 @@ public class Enemy : MonoBehaviour , Attackable
 
     [Header("internal stuff")]
     [Tooltip("The root object, for deletion and movement driving.")]
-    public GameObject rootObject;
     public Vector3 vectorToPlayer;
     public CharacterController charControl;
-
+    public PlayerController playerCon;
     public void Hit(float heat, bool isMelee)
     {
         //Take heat damage, and then check if dead.
@@ -43,6 +42,7 @@ public class Enemy : MonoBehaviour , Attackable
     // Start is called before the first frame update
     void Start()
     {
+        playerCon = FindObjectOfType<PlayerController>();
         charControl = gameObject.GetComponent<CharacterController>();
         //Setting the current heat level to the starting level.
         heatLevel = baseHeat;
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour , Attackable
     // Update is called once per frame
     void Update()
     {
-        vectorToPlayer = FindObjectOfType<PlayerController>().transform.position - gameObject.transform.position;
+        vectorToPlayer = playerCon.transform.position - gameObject.transform.position;
         vectorToPlayer.Normalize();
         Movement();
     }
@@ -68,15 +68,15 @@ public class Enemy : MonoBehaviour , Attackable
         {
             if (heatLevel < deathHeat)
             {
-                Debug.Log(rootObject.name + " died from natural causes. (Too cold) ");
-                Destroy(rootObject);
+                Debug.Log(gameObject.name + " died from natural causes. (Too cold) ");
+                Destroy(gameObject);
             }
         } else
         {
             if (heatLevel > deathHeat)
             {
-                Debug.Log(rootObject.name + " died from natural causes. (Too hot) ");
-                Destroy(rootObject);
+                Debug.Log(gameObject.name + " died from natural causes. (Too hot) ");
+                Destroy(gameObject);
             }
         }
     }
