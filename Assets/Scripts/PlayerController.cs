@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         charControl = gameObject.GetComponent<CharacterController>();
-        
+
         gunAttacking = false;
         gunState = 0;
 
@@ -82,8 +82,8 @@ public class PlayerController : MonoBehaviour
 
         (pos, rot) = GetDirection();
 
-        if (Input.GetButtonDown("Fire1")) { gunAttacking = true; }
-        if (Input.GetButtonDown("Fire2")) { swordAttacking = true; }
+        if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") ) { gunAttacking = true; }
+        if (Input.GetButtonDown("Fire2") || Input.GetButton("Fire2")) { swordAttacking = true; }
         GetDirection();
         GunAttack();
         SwordAttack();
@@ -176,12 +176,12 @@ public class PlayerController : MonoBehaviour
 
                 case 1:
                     swordState = 2;
-                    //Turn on sword
+                    swordObject.SetActive(true);
                     break;
                 case 2:
                     if (swordClock >= swordAttackDelay + swordAttackCutTime)
                     {
-                        //Turn off sword
+                        swordObject.SetActive(false);
                         swordState = 3;
                     }
                         break;
