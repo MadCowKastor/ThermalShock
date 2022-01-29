@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8266,7 +8266,7 @@ MonoBehaviour:
   swordAttackDelay: 0
   swordAttackCutTime: 0
   swordAttackCooldown: 0
-  swordObject: {fileID: 0}
+  swordObject: {fileID: 2010501512}
   swordHeatDamage: 0
   helperObject: {fileID: 1064134051}
   otherHelperObject: {fileID: 1454167792}
@@ -29012,7 +29012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2010501513}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Sword Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30148,7 +30148,7 @@ GameObject:
   - component: {fileID: 2073871133}
   - component: {fileID: 2073871132}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Sword Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
