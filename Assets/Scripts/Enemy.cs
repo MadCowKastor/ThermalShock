@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour , Attackable
 {
@@ -27,6 +28,8 @@ public class Enemy : MonoBehaviour , Attackable
     public Vector3 vectorToPlayer;
     public CharacterController charControl;
     public PlayerController playerCon;
+    public NavMeshAgent navAgent;
+
     public void Hit(float heat, float damage)
     {
         //Take heat damage, and then check if dead.
@@ -37,6 +40,7 @@ public class Enemy : MonoBehaviour , Attackable
 
     public float MeleeHit(float heat, float damage)
     {
+
         //Same as Hit but returns targets heat before hit.
         var preHeat = heatLevel;
         Hit(heat, damage);
@@ -46,6 +50,9 @@ public class Enemy : MonoBehaviour , Attackable
     // Start is called before the first frame update
     void Start()
     {
+        navAgent = gameObject.GetComponent<NavMeshAgent>();
+        navAgent.speed = moveSpeed;
+
         playerCon = FindObjectOfType<PlayerController>();
         charControl = gameObject.GetComponent<CharacterController>();
         //Setting the current heat level to the starting level.
@@ -62,7 +69,8 @@ public class Enemy : MonoBehaviour , Attackable
 
     void Movement()
     {
-        charControl.Move(vectorToPlayer * moveSpeed * Time.deltaTime);
+        navAgent.destination = playerCon.transform.position;
+        //charControl.Move(vectorToPlayer * moveSpeed * Time.deltaTime);
     }
 
     //Death checks and destruction of the object.

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1451040624693346532}
   - component: {fileID: 1451040624693346533}
   - component: {fileID: 1451040624693346530}
+  - component: {fileID: 2116712561}
   m_Layer: 0
   m_Name: flytrap boi
   m_TagString: Untagged
@@ -25,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451040624693346531}
-  m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2949233284372976697}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!212 &1451040624693346533
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -99,6 +100,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2116712561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451040624693346531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a584a22794d1dde49b06b9709659ad6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8024161981977517734
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +122,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2949233284372976697}
   - component: {fileID: 9086232155621726771}
-  - component: {fileID: 7358376536760756513}
+  - component: {fileID: 2510090731520695487}
+  - component: {fileID: 3431949117364060310}
   m_Layer: 0
   m_Name: FlyTrap
   m_TagString: Untagged
@@ -155,8 +169,31 @@ MonoBehaviour:
   vectorToPlayer: {x: 0, y: 0, z: 0}
   charControl: {fileID: 0}
   playerCon: {fileID: 0}
---- !u!143 &7358376536760756513
-CharacterController:
+  navAgent: {fileID: 0}
+--- !u!195 &2510090731520695487
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8024161981977517734}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.78
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1.07
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &3431949117364060310
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -165,11 +202,7 @@ CharacterController:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2.7
-  m_Radius: 0.68
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_Radius: 1.02
+  m_Height: 2.67
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
