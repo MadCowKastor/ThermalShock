@@ -8253,16 +8253,19 @@ MonoBehaviour:
   health: 0
   gunAttacking: 0
   gunHeatGenerated: 0
-  gunAttackDelay: 1
-  gunAttackCooldown: 1
+  gunAttackDelay: 0.2
+  gunAttackCooldown: 0.2
   projectilePrefab: {fileID: 7651889347348835898, guid: 481ec9dc8f5575645b77e865076acd52,
     type: 3}
+  projectileHeatDamage: -25
+  projectileSpeed: 5
   swordAttacking: 0
   swordHeatGenerated: 0
   swordAttackDelay: 0
   swordAttackCutTime: 0
   swordAttackCooldown: 0
   swordObject: {fileID: 0}
+  swordHeatDamage: 0
   helperObject: {fileID: 1064134051}
   otherHelperObject: {fileID: 1454167792}
 --- !u!136 &529072978

@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The linked prefab of the projectile to spawn.")]
     public GameObject projectilePrefab;
     [Tooltip("The amount of heat change the projectile does when it hits something.")]
-    public float projectileHeat;
+    public float projectileHeatDamage;
     [Tooltip("How fast the projectile will move.")]
     public float projectileSpeed;
 
@@ -204,8 +204,9 @@ public class PlayerController : MonoBehaviour
     void SpawnProjectile()
     {
         //get Direction of mouse/second stick and create a projectile prefab moving in that direction.
-        
-        Instantiate<GameObject>(projectilePrefab, gameObject.transform.position + pos, rot);
+        PlayerProjectile projectile = Instantiate<GameObject>(projectilePrefab, gameObject.transform.position + pos, rot).GetComponent<PlayerProjectile>() ;
+        projectile.projectileHeat = projectileHeatDamage;
+        projectile.flySpeed = projectileSpeed;
     }
 
 
