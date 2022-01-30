@@ -110,6 +110,11 @@ public class PlayerController : MonoBehaviour
         heat += (ambiantHeat - heat) * heatLossRate * Time.deltaTime;
     }
 
+    public void TakeDamage(float damageAmount)
+    {
+        health -= damageAmount;
+    }
+
     // Check and do movement based on inputs.
     void Movement()
     {

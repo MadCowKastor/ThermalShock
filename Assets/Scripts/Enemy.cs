@@ -43,6 +43,17 @@ public class Enemy : MonoBehaviour, Attackable
     [Tooltip("How long after the melee attack that this enemy will be unable to do another attack, of any kind.")]
     public float meleeCooldownTime;
 
+    [Tooltip("The amount of time between wanting to attack, and actually launching the attack.")]
+    public float rangedWindupTime;
+    [Tooltip("The prefab of the projectile spawned by ranged attacks.")]
+    public GameObject rangedProjectile;
+    [Tooltip("How fast the projectile moves")]
+    public float rangedProjectileFlySpeed;
+    [Tooltip("How long the projectile lasts for before it is automatically destroyed. Cleanup value.")]
+    public float rangedProjectileLifetime;
+    [Tooltip("How long after a ranged attack that this enemy will be unable to do another attack, of any kind.")]
+    public float rangedCooldownTime;
+
 
     [Header("Movement")]
     [Tooltip("Movement speed (in meters per second) of the Enemy.")]
@@ -119,7 +130,8 @@ public class Enemy : MonoBehaviour, Attackable
                 Debug.Log(gameObject.name + " died from natural causes. (Too cold) ");
                 Destroy(gameObject);
             }
-        } else
+        }
+        else
         {
             if (heatLevel > deathHeat)
             {
@@ -127,7 +139,7 @@ public class Enemy : MonoBehaviour, Attackable
                 Destroy(gameObject);
             }
         }
-        if(health <= 0)
+        if (health <= 0)
         {
             Debug.Log(gameObject.name + " died from grievious harm. ");
             Destroy(gameObject);
@@ -140,14 +152,17 @@ public class Enemy : MonoBehaviour, Attackable
         float distanceToPlayer = Vector3.Distance(gameObject.transform.position, playerCon.transform.position);
         if (distanceToPlayer > meleeStrikeRange && preferRangedAttack)
         {
-            if (distanceToPlayer > engagementRange ) { 
-                navAgent.destination = playerCon.transform.position; 
-            } else {
+            if (distanceToPlayer > engagementRange)
+            {
+                navAgent.destination = playerCon.transform.position;
+            }
+            else
+            {
 
                 // Check if the enemy can see the player when in range. For corners and other barriers.
                 Ray lineOfSight = new Ray(gameObject.transform.position, (playerCon.transform.position - gameObject.transform.position).normalized);
                 RaycastHit rayHit;
-                if (Physics.Raycast(lineOfSight, out rayHit, engagementRange + 1f ) )
+                if (Physics.Raycast(lineOfSight, out rayHit, engagementRange + 1f))
                 {
                     //If the enemy cant see the player, continue moving. The pathfinding should eventually move the enemy into sight.
                     if (rayHit.collider.gameObject.name != "Player") { navAgent.destination = playerCon.transform.position; }
@@ -157,7 +172,8 @@ public class Enemy : MonoBehaviour, Attackable
                     }
                 }
             }
-        } else
+        }
+        else
         {
             navAgent.destination = playerCon.transform.position;
             if (meleeStrikeRange >= Vector3.Distance(gameObject.transform.position, playerCon.transform.position))
@@ -176,35 +192,72 @@ public class Enemy : MonoBehaviour, Attackable
         // Are we commited to doing an attack?
         if (commitedToMelee || commitedToRanged)
         {
-            commitedToMelee = true;
-            if (commitedToMelee) { attackClock += Time.deltaTime; }
-            switch (attackStage)
+
+            if (commitedToMelee)
             {
-                case 0: //The ready state. Runs once per attack
-                    commitedToMelee = true;
-                    attackStage = 1;
-                    break;
-                case 1: //The pre attack windup time. 
-                    if (attackClock >= meleeWindupTime) { attackStage = 2; } //TURN ON WEAPONS
-                    break;
-                case 2: //The acutal phase where the player is in danger.
-                    if (attackClock >= meleeWindupTime + meleeDangerTime) { attackStage = 3; } //TURN OFF WEAPONS
-                    break;
-                case 3:
-                    if (attackClock >= meleeWindupTime + meleeDangerTime + meleeCooldownTime)
-                    {
-                        attackStage = 0;
-                        commitedToMelee = false;
-                    }
-                    break;
-                default:
-                    break;
+                attackClock += Time.deltaTime;
+                switch (attackStage)
+                {
+                    case 0: //The ready state. Runs once per attack
+                        commitedToMelee = true;
+                        attackStage = 1;
+                        break;
+                    case 1: //The pre attack windup time. 
+                        if (attackClock >= meleeWindupTime) { attackStage = 2; } //TURN ON WEAPONS
+                        break;
+                    case 2: //The acutal phase where the player is in danger.
+                        if (attackClock >= meleeWindupTime + meleeDangerTime) { attackStage = 3; } //TURN OFF WEAPONS
+                        break;
+                    case 3:
+                        if (attackClock >= meleeWindupTime + meleeDangerTime + meleeCooldownTime)
+                        {
+                            attackClock = 0f;
+                            attackStage = 0;
+                            commitedToMelee = false;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
             //End of melee attack logic.
 
+            if (commitedToRanged && !commitedToMelee)
+            {
+                attackClock += Time.deltaTime;
+                switch (attackStage)
+                {
+                    case 0: //The ready state. Runs once per attack
+                        commitedToRanged = true;
+                        attackStage = 1;
+                        break;
+                    case 1: //The pre attack windup time. 
+                        if (attackClock >= rangedWindupTime)
+                        {
+                            // Spawn Projectile.
+                            EnemyProjectile projectileSpawned = Instantiate<GameObject>(rangedProjectile, gameObject.transform.position, Quaternion.LookRotation( vectorToPlayer, Vector3.up) ).GetComponent<EnemyProjectile>();
+                            projectileSpawned.damage = rangedDamage;
+                            projectileSpawned.flySpeed = rangedProjectileFlySpeed;
+                            projectileSpawned.deathTime = rangedProjectileLifetime;
 
-        }
-    } // end of DoAttack()
+                            attackStage = 2;
+                        }
+                        break;
+                    case 2: //Cooldown..
+                        if (attackClock >= rangedWindupTime + rangedCooldownTime)
+                        {
+                            attackClock = 0f;
+                            commitedToRanged = false;
+                            attackStage = 0;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        } // end of DoAttack()
 
 
+    }
 }

@@ -166,7 +166,26 @@ MonoBehaviour:
   health: 100
   normalDamageMult: 1
   heatShockDamageMult: 0.01
+  meleeDamage: 0
+  rangedDamage: 0
+  rangedProjectilePrefab: {fileID: 0}
+  preferRangedAttack: 1
+  engagementRange: 3
+  meleeStrikeRange: 0.7
+  meleeWindupTime: 0.2
+  meleeDangerTime: 0.1
+  meleeCooldownTime: 0.4
+  rangedWindupTime: 0.4
+  rangedProjectile: {fileID: 2795086686565173994, guid: be5b9132cfdca1f49a9dd6aeacb7347e,
+    type: 3}
+  rangedProjectileFlySpeed: 1
+  rangedProjectileLifetime: 3
+  rangedCooldownTime: 0.7
   moveSpeed: 6
+  acceleration: 0
+  turnSpeed: 0
+  commitedToRanged: 0
+  commitedToMelee: 0
   vectorToPlayer: {x: 0, y: 0, z: 0}
   charControl: {fileID: 0}
   playerCon: {fileID: 0}
