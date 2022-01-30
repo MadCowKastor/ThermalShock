@@ -209,6 +209,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    int nextFrame;
     // Sword attack states. triggering an attack will go through multiple states until it resets back to the begining.
     void SwordAttack()
     {
@@ -218,15 +220,17 @@ public class PlayerController : MonoBehaviour
             switch (swordState)
             {
                 case 0:
-                    if (swordClock >= swordAttackDelay) { swordState = 1; }
+                    if (swordClock >= swordAttackDelay) { swordState = 1; nextFrame = 0; }
                     break;
 
                 case 1:
                     swordState = 2;
                     swordObject.SetActive(true);
+                    nextFrame = 1;
                     swordObject.transform.rotation = rot;
                     break;
                 case 2:
+
                     swordObject.transform.rotation = rot;
                     if (swordClock >= swordAttackDelay + swordAttackCutTime)
                     {
