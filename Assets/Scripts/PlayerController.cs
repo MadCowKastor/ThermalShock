@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        aniWalkDir = playerSprite.GetComponent<Animator>().GetParameter(1);
 
         charControl = gameObject.GetComponent<CharacterController>();
 
@@ -124,17 +123,8 @@ public class PlayerController : MonoBehaviour
         Vector3 moveInput = Vector2.zero;
         moveInput.z = Input.GetAxisRaw("Vertical");
         moveInput.x = Input.GetAxisRaw("Horizontal");
-        switch (moveInput.z)
-        {
-            case 1:
-                break;
-            case 0:
-                break;
-            case -1:
-                break;
-            default:
-                break;
-        }
+
+        playerSprite.GetComponent<Animator>().SetFloat("WalkAndFace", (moveInput.z + 1)/2 );
 
         moveInput.Normalize();
         //Debug.Log("Movement direction magnitude is " + moveInput.magnitude);
