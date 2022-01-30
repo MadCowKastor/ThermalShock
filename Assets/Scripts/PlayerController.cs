@@ -65,8 +65,6 @@ public class PlayerController : MonoBehaviour
 
     [Space]
     [Header("Internal Stuff")]
-    public GameObject helperObject;
-    public GameObject otherHelperObject;
     private CharacterController charControl;
     Vector3 pos;
     Quaternion rot;
@@ -159,10 +157,6 @@ public class PlayerController : MonoBehaviour
         mouseHitPoint.Normalize();
         mouseHitPoint = mouseHitPoint * 2f;
         Quaternion lookAt = Quaternion.LookRotation(mouseHitPoint, Vector3.up);
-
-        // Rotates the helper objects to show the rotation in game.
-        otherHelperObject.transform.SetPositionAndRotation(otherHelperObject.transform.position, newLookAtQuat);
-        helperObject.transform.SetPositionAndRotation(mouseHitPoint + gameObject.transform.position, helperObject.transform.rotation);
 
         float eRot = 0f;
         Vector3 rotAxis;
