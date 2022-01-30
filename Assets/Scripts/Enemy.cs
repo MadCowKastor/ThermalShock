@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour , Attackable
+public class Enemy : MonoBehaviour, Attackable
 {
     [Header("Enemy Health and Heat")]
     [Tooltip("The heat the enemy starts at when spawned.")]
@@ -19,16 +19,51 @@ public class Enemy : MonoBehaviour , Attackable
     public float normalDamageMult = 1f;
     public float heatShockDamageMult = 0.01f;
 
+    [Header("Damage")]
+    [Tooltip("The damage this unit does in a melee attack")]
+    public float meleeDamage;
+    [Tooltip("Damage the ranged projectile will do if it hits.")]
+    public float rangedDamage;
+    [Tooltip("The prefab of the enemy's ranged attack.")]
+    public GameObject rangedProjectilePrefab;
+
+    [Header("AI control settings")]
+    [Tooltip("AI control switch. Will hang back and shoot at the player (if line of sight avaliable). Will still do a melee attack if too close.")]
+    public bool preferRangedAttack;
+    [Tooltip("The range that the enemy will stop and try to shoot.")]
+    public float engagementRange;
+    [Tooltip("How close the enemy has to be before it will try to do a melee attack")]
+    public float meleeStrikeRange;
+
+    [Header("Attack Timers")]
+    [Tooltip("The amount of time between wanting to attack, and actually launching the attack.")]
+    public float meleeWindupTime;
+    [Tooltip("Time that the enemy is dangerous to touch. I think having a small window is better than having them constantly damaging, as the player needs to get close to do thier own melee attacks.")]
+    public float meleeDangerTime;
+    [Tooltip("How long after the melee attack that this enemy will be unable to do another attack, of any kind.")]
+    public float meleeCooldownTime;
+
+
     [Header("Movement")]
     [Tooltip("Movement speed (in meters per second) of the Enemy.")]
     public float moveSpeed = 0f;
+    [Tooltip("Acceleration. How fast the enemy gets up to max speed, or slows down")]
+    public float acceleration;
+    [Tooltip("How quickly the enemy can turn. Low values make this enemy easier to dodge.")]
+    public float turnSpeed;
+
 
     [Header("internal stuff")]
-    [Tooltip("The root object, for deletion and movement driving.")]
+    [Tooltip("Is this enemy commited to preforming, or is currently attacking? This will switch to true, preventing other attacks. Occurs before the attack is seen, during the start of the windup phase.")]
+    public bool commitedToRanged;
+    [Tooltip("The same as above, but for melee attacks.")]
+    public bool commitedToMelee;
+
     public Vector3 vectorToPlayer;
     public CharacterController charControl;
     public PlayerController playerCon;
     public NavMeshAgent navAgent;
+
 
     public void Hit(float heat, float damage)
     {
@@ -64,12 +99,13 @@ public class Enemy : MonoBehaviour , Attackable
     {
         vectorToPlayer = playerCon.transform.position - gameObject.transform.position;
         vectorToPlayer.Normalize();
-        Movement();
+        EnemyAIControl();
+        DoAttack();
     }
 
     void Movement()
     {
-        navAgent.destination = playerCon.transform.position;
+
         //charControl.Move(vectorToPlayer * moveSpeed * Time.deltaTime);
     }
 
@@ -97,4 +133,78 @@ public class Enemy : MonoBehaviour , Attackable
             Destroy(gameObject);
         }
     }
+
+
+    void EnemyAIControl()
+    {
+        float distanceToPlayer = Vector3.Distance(gameObject.transform.position, playerCon.transform.position);
+        if (distanceToPlayer > meleeStrikeRange && preferRangedAttack)
+        {
+            if (distanceToPlayer > engagementRange ) { 
+                navAgent.destination = playerCon.transform.position; 
+            } else {
+
+                // Check if the enemy can see the player when in range. For corners and other barriers.
+                Ray lineOfSight = new Ray(gameObject.transform.position, (playerCon.transform.position - gameObject.transform.position).normalized);
+                RaycastHit rayHit;
+                if (Physics.Raycast(lineOfSight, out rayHit, engagementRange + 1f ) )
+                {
+                    //If the enemy cant see the player, continue moving. The pathfinding should eventually move the enemy into sight.
+                    if (rayHit.collider.gameObject.name != "Player") { navAgent.destination = playerCon.transform.position; }
+                    else
+                    {
+                        if (!commitedToMelee) { commitedToRanged = true; }
+                    }
+                }
+            }
+        } else
+        {
+            navAgent.destination = playerCon.transform.position;
+            if (meleeStrikeRange >= Vector3.Distance(gameObject.transform.position, playerCon.transform.position))
+            {
+                commitedToMelee = true;
+            }
+
+        }
+    }
+
+    private float attackClock;
+    private int attackStage;
+
+    void DoAttack()
+    {
+        // Are we commited to doing an attack?
+        if (commitedToMelee || commitedToRanged)
+        {
+            commitedToMelee = true;
+            if (commitedToMelee) { attackClock += Time.deltaTime; }
+            switch (attackStage)
+            {
+                case 0: //The ready state. Runs once per attack
+                    commitedToMelee = true;
+                    attackStage = 1;
+                    break;
+                case 1: //The pre attack windup time. 
+                    if (attackClock >= meleeWindupTime) { attackStage = 2; } //TURN ON WEAPONS
+                    break;
+                case 2: //The acutal phase where the player is in danger.
+                    if (attackClock >= meleeWindupTime + meleeDangerTime) { attackStage = 3; } //TURN OFF WEAPONS
+                    break;
+                case 3:
+                    if (attackClock >= meleeWindupTime + meleeDangerTime + meleeCooldownTime)
+                    {
+                        attackStage = 0;
+                        commitedToMelee = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            //End of melee attack logic.
+
+
+        }
+    } // end of DoAttack()
+
+
 }
