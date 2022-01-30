@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How fast the player moves. Units are meters per second.")]
     public float moveSpeed = 0f;
 
+    public GameObject PlayerDeathScreen;
+
     [Header("Health")]
     [Tooltip("The current heat level of the player.")]
     public float heat;
@@ -113,6 +115,8 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         health -= damageAmount;
+        if (health <= 0) PlayerDeath();
+                
     }
 
     // Check and do movement based on inputs.
@@ -259,6 +263,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerDeath()
     {
+        PlayerDeathScreen.SetActive(true);
         Destroy(gameObject);
     }
 
