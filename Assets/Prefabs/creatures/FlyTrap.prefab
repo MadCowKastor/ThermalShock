@@ -224,12 +224,12 @@ MonoBehaviour:
   deathHeat: -50
   chilledDeath: 1
   heatLevel: 0
-  health: 100
+  health: 50
   normalDamageMult: 1
   heatShockDamageMult: 0.01
   meleeDamage: 15
-  meleeHeatDamage: 30
-  rangedDamage: 5
+  meleeHeatDamage: 0
+  rangedDamage: 10
   rangedProjectilePrefab: {fileID: 0}
   rangedProjectile: {fileID: 2795086686565173994, guid: be5b9132cfdca1f49a9dd6aeacb7347e,
     type: 3}

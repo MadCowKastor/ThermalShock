@@ -178,6 +178,7 @@ public class Enemy : MonoBehaviour, Attackable
                     if (rayHit.collider.gameObject.name != "Player") { navAgent.destination = playerCon.transform.position; }
                     else
                     {
+                        navAgent.destination = gameObject.transform.position;
                         if (!commitedToMelee) { commitedToRanged = true; }
                     }
                 }
