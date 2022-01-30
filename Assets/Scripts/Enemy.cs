@@ -22,10 +22,21 @@ public class Enemy : MonoBehaviour, Attackable
     [Header("Damage")]
     [Tooltip("The damage this unit does in a melee attack")]
     public float meleeDamage;
+    public float meleeHeatDamage;
     [Tooltip("Damage the ranged projectile will do if it hits.")]
     public float rangedDamage;
+
     [Tooltip("The prefab of the enemy's ranged attack.")]
     public GameObject rangedProjectilePrefab;
+
+    [Tooltip("The prefab of the projectile spawned by ranged attacks.")]
+    public GameObject rangedProjectile;
+    [Tooltip("How fast the projectile moves")]
+    public float rangedProjectileFlySpeed;
+    [Tooltip("How long the projectile lasts for before it is automatically destroyed. Cleanup value.")]
+    public float rangedProjectileLifetime;
+    [Tooltip("Object that is enabled duing melee attacks.")]
+    public GameObject meleeCollisionObject;
 
     [Header("AI control settings")]
     [Tooltip("AI control switch. Will hang back and shoot at the player (if line of sight avaliable). Will still do a melee attack if too close.")]
@@ -45,14 +56,9 @@ public class Enemy : MonoBehaviour, Attackable
 
     [Tooltip("The amount of time between wanting to attack, and actually launching the attack.")]
     public float rangedWindupTime;
-    [Tooltip("The prefab of the projectile spawned by ranged attacks.")]
-    public GameObject rangedProjectile;
-    [Tooltip("How fast the projectile moves")]
-    public float rangedProjectileFlySpeed;
-    [Tooltip("How long the projectile lasts for before it is automatically destroyed. Cleanup value.")]
-    public float rangedProjectileLifetime;
     [Tooltip("How long after a ranged attack that this enemy will be unable to do another attack, of any kind.")]
     public float rangedCooldownTime;
+
 
 
     [Header("Movement")]
@@ -96,6 +102,10 @@ public class Enemy : MonoBehaviour, Attackable
     // Start is called before the first frame update
     void Start()
     {
+        meleeCollisionObject.GetComponent<EnemyMelee>().damage = meleeDamage;
+        meleeCollisionObject.GetComponent<EnemyMelee>().heatDamage = meleeHeatDamage;
+
+
         navAgent = gameObject.GetComponent<NavMeshAgent>();
         navAgent.speed = moveSpeed;
 
