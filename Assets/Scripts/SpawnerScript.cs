@@ -25,7 +25,7 @@ public class SpawnerScript : MonoBehaviour
         if (spawnClock < spawnCooldown) { spawnClock += Time.deltaTime; }
         else
         {
-            if ((playerCon.transform.position - gameObject.transform.position).magnitude > spawnRange)
+            if ((playerCon.transform.position - gameObject.transform.position).magnitude < spawnRange)
             {
                 spawnClock = 0f;
                 Instantiate<GameObject>(spawnedPrefab, gameObject.transform);
