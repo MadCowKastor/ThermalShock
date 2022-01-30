@@ -72,13 +72,16 @@ public class PlayerController : MonoBehaviour
     Quaternion rot;
     Vector3 axisRotAxis;
     float axisRotAngle;
-
+    public GameObject playerSprite;
+    private AnimatorControllerParameter aniWalkDir;
     #endregion
 
 
     // Start is called before the first frame update
     void Start()
     {
+        aniWalkDir = playerSprite.GetComponent<Animator>().GetParameter(1);
+
         charControl = gameObject.GetComponent<CharacterController>();
 
         gunAttacking = false;
@@ -121,6 +124,18 @@ public class PlayerController : MonoBehaviour
         Vector3 moveInput = Vector2.zero;
         moveInput.z = Input.GetAxisRaw("Vertical");
         moveInput.x = Input.GetAxisRaw("Horizontal");
+        switch (moveInput.z)
+        {
+            case 1:
+                break;
+            case 0:
+                break;
+            case -1:
+                break;
+            default:
+                break;
+        }
+
         moveInput.Normalize();
         //Debug.Log("Movement direction magnitude is " + moveInput.magnitude);
         charControl.Move(moveInput * moveSpeed * Time.deltaTime);

@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour, Attackable
 
     void Movement()
     {
-
+        // Used to use character controller for movment, use navmesh agent in the AI code now.
         //charControl.Move(vectorToPlayer * moveSpeed * Time.deltaTime);
     }
 
@@ -193,6 +193,9 @@ public class Enemy : MonoBehaviour, Attackable
 
         }
     }
+
+
+
 
     private float attackClock;
     private int attackStage;
